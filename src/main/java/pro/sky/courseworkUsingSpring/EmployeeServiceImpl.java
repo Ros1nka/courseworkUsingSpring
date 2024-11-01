@@ -52,8 +52,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new EmployeeNotFoundException("Сотрудник не найден");
     }
 	
-	@Override
-	public List<Employee> getAllEmployee(){
+    @Override
+    public List<Employee> getAllEmployee(){
         return employees;
-	}
+    }
 }
