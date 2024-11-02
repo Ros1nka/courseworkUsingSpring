@@ -12,7 +12,7 @@ import pro.sky.courseworkUsingSpring.Exceptions.EmployeeStorageIsFullException;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-    private final EmployeeServiceImpl employeeServiceImpl;
+    private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeServiceImpl employeeServiceImpl) {
         this.employeeServiceImpl = employeeServiceImpl;
@@ -20,33 +20,33 @@ public class EmployeeController {
 
     @GetMapping(path = "/add")
     public String addEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        try {
-            employeeServiceImpl.addEmployee(firstName, lastName);
-        } catch (EmployeeStorageIsFullException e) {
-            return "";
-        } catch (EmployeeAlreadyAddedException e) {
-            return "";
-        }
-        return "\"firstName\": \"Ivan\", \"lastName\": \"Ivanov\"";
+        //try {
+        //    employeeService.addEmployee(firstName, lastName);
+        //} catch (EmployeeStorageIsFullException e) {
+        //    return "";
+        //} catch (EmployeeAlreadyAddedException e) {
+        //   return "";
+        //}
+        return employeeService.addEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/remove")
     public String removeEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        try {
-            employeeServiceImpl.removeEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
-            return "";
-        }
-        return "\"firstName\": \"Ivan\", \"lastName\": \"Ivanov\"";
+        //try {
+        //    employeeServiceImpl.removeEmployee(firstName, lastName);
+        //} catch (EmployeeNotFoundException e) {
+        //    return "";
+        //}
+        return employeeService.removeEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "find")
     public String findEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        try {
-            employeeServiceImpl.findEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
-            return "";
-        }
-        return "\"firstName\": \"Ivan\", \"lastName\": \"Ivanov\"";
+        //try {
+        //    employeeServiceImpl.findEmployee(firstName, lastName);
+        //} catch (EmployeeNotFoundException e) {
+        //    return "";
+        //}
+        return employeeService.findEmployee(firstName, lastName);
     }
 }
