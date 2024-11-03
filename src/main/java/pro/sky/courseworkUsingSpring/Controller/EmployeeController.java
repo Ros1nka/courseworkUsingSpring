@@ -4,34 +4,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.courseworkUsingSpring.EmployeeServiceImpl;
-import pro.sky.courseworkUsingSpring.Exceptions.EmployeeAlreadyAddedException;
-import pro.sky.courseworkUsingSpring.Exceptions.EmployeeNotFoundException;
-import pro.sky.courseworkUsingSpring.Exceptions.EmployeeStorageIsFullException;
+import pro.sky.courseworkUsingSpring.Employee;
+import pro.sky.courseworkUsingSpring.EmployeeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeServiceImpl employeeServiceImpl) {
-        this.employeeServiceImpl = employeeServiceImpl;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping(path = "/add")
-    public String addEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        //try {
-        //    employeeService.addEmployee(firstName, lastName);
-        //} catch (EmployeeStorageIsFullException e) {
-        //    return "";
-        //} catch (EmployeeAlreadyAddedException e) {
-        //   return "";
-        //}
+    public Employee addEmployee(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName) {
+//        try {
+//            employeeService.addEmployee(firstName, lastName);
+//        } catch (EmployeeStorageIsFullException e) {
+//            return "";
+//        } catch (EmployeeAlreadyAddedException e) {
+//           return "";
+//        }
         return employeeService.addEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/remove")
-    public String removeEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+    public Employee removeEmployee(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName) {
         //try {
         //    employeeServiceImpl.removeEmployee(firstName, lastName);
         //} catch (EmployeeNotFoundException e) {
@@ -41,12 +41,17 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "find")
-    public String findEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+    public Employee findEmployee(@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastName) {
         //try {
         //    employeeServiceImpl.findEmployee(firstName, lastName);
         //} catch (EmployeeNotFoundException e) {
         //    return "";
         //}
-        return employeeService.findEmployee(firstName, lastName);
+        return employeeService.findEmployee(firstname, lastName);
+    }
+
+    @GetMapping(path = "getall")
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployee();
     }
 }
