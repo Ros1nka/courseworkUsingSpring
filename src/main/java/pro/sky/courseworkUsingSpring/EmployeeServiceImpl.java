@@ -10,19 +10,24 @@ import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    List<Employee> employees = new ArrayList<>();
-    final int maxEmployees = 10;
-
+    final int maxEmployees = 5;
+    List<Employee> employees = new ArrayList<>(List.of(
+            new Employee("Владимир", "Машков"),
+            new Employee("Константин", "Хабенский"),
+            new Employee("Елена", "Яковлева"),
+            new Employee("Игорь", "Петренко")
+    ));
+//add?firstname=wqeda&lastname=qwewqeqwe
     @Override
     public Employee addEmployee(String firstName, String lastName) {
 		
         if (employees.size() >= maxEmployees) {
-            throw new EmployeeStorageIsFullException("Превышено максимальное количество сотрудников");
+            throw new EmployeeStorageIsFullException();
         }
         Employee employee = new Employee(firstName, lastName);
 
         if (employees.contains(employee)) {
-            throw new EmployeeAlreadyAddedException("Сотрудник уже добавлен");
+            throw new EmployeeAlreadyAddedException();
         }
         employees.add(employee);
         return employee;
@@ -33,9 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = new Employee(firstName, lastName);
 		
 		if(!employees.contains(employee)){
-		    throw new EmployeeNotFoundException("Сотрудник не найден");
+		    throw new EmployeeNotFoundException();
 		}
-		employees.remove(employee)
+		employees.remove(employee);
 		return employee;
     }
 
@@ -46,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.contains(employee)) {
             return employee;
         }
-        throw new EmployeeNotFoundException("Сотрудник не найден");
+        throw new EmployeeNotFoundException();
     }
 	
 	@Override

@@ -1,4 +1,7 @@
 package pro.sky.courseworkUsingSpring;
+
+import java.util.List;
+
 public interface EmployeeService {
     Employee addEmployee(String firstName, String lastName);
 
@@ -6,5 +9,5 @@ public interface EmployeeService {
 
     Employee findEmployee(String firstName, String lastName);
 
-    List<Employee> getAllEmployee()
+    List<Employee> getAllEmployee();
 }
