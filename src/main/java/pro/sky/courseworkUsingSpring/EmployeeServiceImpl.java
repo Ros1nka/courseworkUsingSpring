@@ -17,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             new Employee("Елена", "Яковлева"),
             new Employee("Игорь", "Петренко")
     ));
-//add?firstname=wqeda&lastname=qwewqeqwe
+
     @Override
     public Employee addEmployee(String firstName, String lastName) {
 		
