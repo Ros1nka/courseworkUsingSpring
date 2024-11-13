@@ -6,12 +6,15 @@ import pro.sky.courseworkUsingSpring.Exceptions.EmployeeNotFoundException;
 import pro.sky.courseworkUsingSpring.Exceptions.EmployeeStorageIsFullException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     final int maxEmployees = 5;
-    List<Employee> employees = new ArrayList<>(List.of(
+
+    Map<String, Employee> employees = new HashMap(Map.of(
             new Employee("Владимир", "Машков"),
             new Employee("Константин", "Хабенский"),
             new Employee("Елена", "Яковлева"),
