@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.courseworkUsingSpring.Employee;
 import pro.sky.courseworkUsingSpring.EmployeeService;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/employee")
@@ -19,22 +19,25 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public Employee addEmployee(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName) {
+    public Employee addEmployee(@RequestParam("firstname") String firstName,
+                                @RequestParam("lastname") String lastName) {
         return employeeService.addEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/remove")
-    public Employee removeEmployee(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName) {
+    public Employee removeEmployee(@RequestParam("firstname") String firstName,
+                                   @RequestParam("lastname") String lastName) {
         return employeeService.removeEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "find")
-    public Employee findEmployee(@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastName) {
+    public Employee findEmployee(@RequestParam("firstname") String firstname,
+                                 @RequestParam("lastname") String lastName) {
         return employeeService.findEmployee(firstname, lastName);
     }
 
     @GetMapping(path = "getall")
-    public List<Employee> getAllEmployees() {
+    public Collection getAllEmployees() {
         return employeeService.getAllEmployee();
     }
 }
