@@ -1,11 +1,13 @@
-package pro.sky.courseworkUsingSpring;
+package pro.sky.courseworkUsingSpring.service;
 
 import org.springframework.stereotype.Service;
-import pro.sky.courseworkUsingSpring.Exceptions.EmployeeAlreadyAddedException;
-import pro.sky.courseworkUsingSpring.Exceptions.EmployeeNotFoundException;
-import pro.sky.courseworkUsingSpring.Exceptions.EmployeeStorageIsFullException;
+import pro.sky.courseworkUsingSpring.model.Employee;
+import pro.sky.courseworkUsingSpring.exception.EmployeeAlreadyAddedException;
+import pro.sky.courseworkUsingSpring.exception.EmployeeNotFoundException;
+import pro.sky.courseworkUsingSpring.exception.EmployeeStorageIsFullException;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,39 +33,39 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeStorageIsFullException();
         }
         Employee employee = new Employee(firstName, lastName);
-        String employeeKey = firstName + lastName;
 
-        if (employees.containsKey(employeeKey)) {
+        if (employees.containsKey(employeeKey(firstName, lastName))) {
             throw new EmployeeAlreadyAddedException();
         }
-        employees.put(employeeKey, employee);
-        return employees.get(employeeKey);
+        employees.put(employeeKey(firstName, lastName), employee);
+        return employees.get(employeeKey(firstName, lastName));
     }
 
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        String employeeKey = firstName + lastName;
 
-        if (!employees.containsKey(employeeKey)) {
+        if (!employees.containsKey(employeeKey(firstName, lastName))) {
             throw new EmployeeNotFoundException();
         }
-        return employees.remove(employeeKey);
+        return employees.remove(employeeKey(firstName, lastName));
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        String employeeKey = firstName + lastName;
 
-        if (employees.containsKey(employeeKey)) {
-            return employees.get(employeeKey);
+        if (employees.containsKey(employeeKey(firstName, lastName))) {
+            return employees.get(employeeKey(firstName, lastName));
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
     public Collection<Employee> getAllEmployee() {
-        return (employees.values());
+        return Collections.unmodifiableCollection(employees.values());
+    }
+
+    @Override
+    public String employeeKey(String firstName, String lastName) {
+        return firstName + lastName;
     }
 }

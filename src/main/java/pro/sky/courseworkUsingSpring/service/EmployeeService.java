@@ -1,4 +1,6 @@
-package pro.sky.courseworkUsingSpring;
+package pro.sky.courseworkUsingSpring.service;
+
+import pro.sky.courseworkUsingSpring.model.Employee;
 
 import java.util.Collection;
 
@@ -10,4 +12,6 @@ public interface EmployeeService {
     Employee findEmployee(String firstName, String lastName);
 
     Collection getAllEmployee();
+
+    String employeeKey(String firstName, String lastName);
 }
