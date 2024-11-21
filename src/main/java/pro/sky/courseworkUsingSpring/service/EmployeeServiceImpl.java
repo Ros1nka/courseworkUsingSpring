@@ -12,27 +12,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService{
     final int maxEmployees = 8;
 
     Map<String, Employee> employees = new HashMap<>(Map.of(
             "Владимир" + "Машков",
-            new Employee("Владимир", "Машков"),
+            new Employee("Владимир", "Машков", 100000, 2),
             "Константин" + "Хабенский",
-            new Employee("Константин", "Хабенский"),
+            new Employee("Константин", "Хабенский", 120000, 1),
             "Елена" + "Яковлева",
-            new Employee("Елена", "Яковлева"),
+            new Employee("Елена", "Яковлева", 110000, 2),
             "Игорь" + "Петренко",
-            new Employee("Игорь", "Петренко")
+            new Employee("Игорь", "Петренко", 105000, 2)
     ));
 
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName, int salary, int department) {
 
         if (employees.size() >= maxEmployees) {
             throw new EmployeeStorageIsFullException();
         }
-        Employee employee = new Employee(firstName, lastName);
+        Employee employee = new Employee(firstName, lastName, salary, department);
 
         if (employees.containsKey(employeeKey(firstName, lastName))) {
             throw new EmployeeAlreadyAddedException();
