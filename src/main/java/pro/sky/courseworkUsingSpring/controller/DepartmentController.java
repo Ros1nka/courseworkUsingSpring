@@ -7,18 +7,35 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.courseworkUsingSpring.model.Employee;
 import pro.sky.courseworkUsingSpring.service.DepartmentService;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("departments")
 public class DepartmentController {
-    private final  DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
 
     @GetMapping(path = "/max-salary")
-    public Employee minSalaryDepartment(@RequestParam int departmentId) {
-        return minSalaryDepartment(departmentId);
+    public Employee maxSalaryDepartment(@RequestParam Integer departmentId) {
+
+        return departmentService.maxSalaryDepartment(departmentId);
+    }
+
+    @GetMapping(path = "/min-salary")
+    public Employee minSalaryDepartment(@RequestParam Integer departmentId) {
+
+        return departmentService.minSalaryDepartment(departmentId);
+    }
+
+    @GetMapping("/all")
+    public List<Employee> getAllEmployeesDepartment(@RequestParam(required = false) Integer departmentId) {
+
+        if (departmentId != null) {
+            return departmentService.getAllEmployeesDepartment(departmentId);
+        } else
+            return departmentService.getAllEmployees();
     }
 }

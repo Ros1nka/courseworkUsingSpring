@@ -1,65 +1,50 @@
 package pro.sky.courseworkUsingSpring.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.courseworkUsingSpring.exception.EmployeeNotFoundException;
 import pro.sky.courseworkUsingSpring.model.Employee;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private final EmployeeServiceImpl employeeService;
+    private final EmployeeService employeeService;
 
-    public DepartmentServiceImpl(EmployeeServiceImpl employeeService) {
+    public DepartmentServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
     @Override
-    public Employee maxSalaryDepartment(int departmentNumber) {
-        double max = Double.MIN_VALUE;
-        Employee maxSalaryInDep = null;
+    public Employee maxSalaryDepartment(Integer departmentNumber) {
 
-        employeeService.employees.
-
-        employeeService.employees.forEach(e -> e.getSalary );
-
-        for (Employee employee : employees) {
-            if (employee != null && departmentNumber == employee.getDepartment() && max < employee.getSalary()) {
-                max = employee.getSalary();
-                maxSalaryInDep = employee;
-            }
-        }
-        return maxSalaryInDep;
+        return employeeService.getAllEmployee().stream()
+                .filter(e -> e.getDepartment() == departmentNumber)
+                .max(Comparator.comparingInt(e -> e.getSalary()))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     @Override
-    public Employee minSalaryDepartment(int departmentNumber) {
+    public Employee minSalaryDepartment(Integer departmentNumber) {
 
-        double min = Double.MAX_VALUE;
-        Employee minSalaryInDep = null;
-
-        for (Employee employee : employees) {
-            if (employee != null && departmentNumber == employee.getDepartment() && min > employee.getSalary()) {
-                min = employee.getSalary();
-                minSalaryInDep = employee;
-            }
-        }
-        return minSalaryInDep;
+        return employeeService.getAllEmployee().stream()
+                .filter(e -> e.getDepartment() == departmentNumber)
+                .min(Comparator.comparingInt(e -> e.getSalary()))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     @Override
-    public void printEmployeesDeportment(int departmentNumber) {
-        System.out.println("Сотрудники отдела №" + departmentNumber + ":");
+    public List<Employee> getAllEmployeesDepartment(Integer departmentNumber) {
 
-        for (Employee employee : employees) {
-            if (employee != null && departmentNumber == employee.getDepartment()) {
-                System.out.printf("    " + employee.getLastName() +
-                        " " + employee.getFirstName() + ", ЗП= %.2f%n", employee.getSalary());
-            }
-        }
-        System.out.println();
+        return employeeService.getAllEmployee().stream()
+                .filter(e -> e.getDepartment() == departmentNumber)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void getAllEmployees() {
-
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployee().stream().toList();
     }
 }

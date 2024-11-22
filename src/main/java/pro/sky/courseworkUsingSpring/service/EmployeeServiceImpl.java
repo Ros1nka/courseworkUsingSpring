@@ -6,16 +6,13 @@ import pro.sky.courseworkUsingSpring.exception.EmployeeAlreadyAddedException;
 import pro.sky.courseworkUsingSpring.exception.EmployeeNotFoundException;
 import pro.sky.courseworkUsingSpring.exception.EmployeeStorageIsFullException;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
     final int maxEmployees = 8;
 
-    Map<String, Employee> employees = new HashMap<>(Map.of(
+    private Map<String, Employee> employees = new HashMap<>(Map.of(
             "Владимир" + "Машков",
             new Employee("Владимир", "Машков", 100000, 2),
             "Константин" + "Хабенский",
@@ -39,6 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
         employees.put(employeeKey(firstName, lastName), employee);
         return employees.get(employeeKey(firstName, lastName));
+
     }
 
     @Override
@@ -61,11 +59,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Collection<Employee> getAllEmployee() {
+
+        return Collections.unmodifiableCollection(employees.values());
+    }
+
+    public Collection<Employee> getAllEmployees() {
         return Collections.unmodifiableCollection(employees.values());
     }
 
     @Override
     public String employeeKey(String firstName, String lastName) {
+
         return firstName + lastName;
     }
 }
