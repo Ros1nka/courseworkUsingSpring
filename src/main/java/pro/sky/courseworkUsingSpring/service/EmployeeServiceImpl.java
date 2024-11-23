@@ -63,10 +63,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Collections.unmodifiableCollection(employees.values());
     }
 
-    public Collection<Employee> getAllEmployees() {
-        return Collections.unmodifiableCollection(employees.values());
-    }
-
     @Override
     public String employeeKey(String firstName, String lastName) {
 
