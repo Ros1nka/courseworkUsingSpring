@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.courseworkUsingSpring.model.Employee;
 import pro.sky.courseworkUsingSpring.service.DepartmentService;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("departments")
@@ -31,7 +33,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/all")
-    public List<Employee> getAllEmployeesDepartment(@RequestParam(required = false) Integer departmentId) {
+    public Object getAllEmployeesDepartment(@RequestParam(required = false) Integer departmentId) {
 
         if (departmentId != null) {
             return departmentService.getAllEmployeesDepartment(departmentId);

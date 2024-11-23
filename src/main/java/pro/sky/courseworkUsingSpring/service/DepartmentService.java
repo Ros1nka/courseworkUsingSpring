@@ -3,6 +3,7 @@ package pro.sky.courseworkUsingSpring.service;
 import pro.sky.courseworkUsingSpring.model.Employee;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DepartmentService {
     Employee maxSalaryDepartment(Integer departmentNumber);
@@ -11,5 +12,5 @@ public interface DepartmentService {
 
     List<Employee> getAllEmployeesDepartment(Integer departmentNumber);
 
-    List<Employee> getAllEmployees();
+    Map<Integer, List<Employee>> getAllEmployees();
 }

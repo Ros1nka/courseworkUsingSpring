@@ -4,8 +4,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.courseworkUsingSpring.exception.EmployeeNotFoundException;
 import pro.sky.courseworkUsingSpring.model.Employee;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,11 +39,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         return employeeService.getAllEmployee().stream()
                 .filter(e -> e.getDepartment() == departmentNumber)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployee().stream().toList();
+    public Map<Integer, List<Employee>> getAllEmployees() {
+        return employeeService.getAllEmployee().stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 }
