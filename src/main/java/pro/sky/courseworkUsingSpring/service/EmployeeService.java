@@ -11,7 +11,7 @@ public interface EmployeeService {
 
     Employee findEmployee(String firstName, String lastName);
 
-    Collection getAllEmployee();
+    Collection<Employee> getAllEmployee();
 
     String employeeKey(String firstName, String lastName);
 }
